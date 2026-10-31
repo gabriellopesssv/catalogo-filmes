@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 Catálogo de Filmes</h1>
+            <p>Descubra filmes, adicione aos favoritos e avalie</p>
+        </header>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Buscar filmes...">
+            <button onclick="buscarFilmes()">Buscar</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="mostrarPopulares()">Populares</button>
+            <button class="tab" onclick="mostrarMeusFilmes()">Meus Filmes</button>
+        </div>
+
+        <div id="loading" class="hidden">Carregando...</div>
+        <div id="errorMessage" class="error hidden"></div>
+
+        <div id="filmesGrid" class="filmes-grid"></div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
