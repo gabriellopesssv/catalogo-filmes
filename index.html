@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Filmes</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <style>
+        .key-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .key-bar input { flex: 1; min-width: 220px; padding: 12px 20px; border: none; border-radius: 8px; font-size: 1rem; }
+        .key-bar button { padding: 12px 24px; background: #fff; border: none; border-radius: 8px; font-weight: bold; color: #667eea; cursor: pointer; }
+        .key-hint { color: white; opacity: 0.9; font-size: 0.9rem; margin-bottom: 10px; }
+        .key-hint a { color: white; }
+        .link-btn { background: none; border: none; color: white; text-decoration: underline; cursor: pointer; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Catálogo de Filmes</h1>
+            <p>Descubra filmes, adicione aos favoritos e avalie</p>
+        </header>
+
+        <div id="keySection" class="hidden">
+            <p class="key-hint">Informe sua chave da API TMDB (v3). Ela fica salva só neste navegador. <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Obter chave</a></p>
+            <div class="key-bar">
+                <input type="password" id="keyInput" placeholder="Chave da API TMDB" autocomplete="off">
+                <button id="keySave" type="button">Salvar chave</button>
+            </div>
+        </div>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Buscar filmes...">
+            <button id="searchBtn" type="button">Buscar</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" id="tabPopulares" type="button">Populares</button>
+            <button class="tab" id="tabMeus" type="button">Meus Filmes</button>
+        </div>
+
+        <div id="loading" class="hidden">Carregando...</div>
+        <div id="errorMessage" class="error hidden"></div>
+
+        <div id="filmesGrid" class="filmes-grid"></div>
+
+        <p style="text-align:center; margin-top:30px;">
+            <button class="link-btn" id="keyReset" type="button">Trocar chave da API</button>
+        </p>
+    </div>
+
+    <script src="static/js/pages.js"></script>
+</body>
+</html>
