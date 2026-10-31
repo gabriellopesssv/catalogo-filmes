@@ -26,7 +26,7 @@ jobs:
       - run: |
           mkdir -p _site/static/css _site/static/js
           cp index.html _site/
-          cp static/css/style.css _site/static/css/
+          cp static/css/pages.css _site/static/css/
           cp static/js/pages.js _site/static/js/
 
       - uses: actions/upload-pages-artifact@v5
