@@ -3,51 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#15101d">
     <title>Catálogo de Filmes</title>
-    <link rel="stylesheet" href="static/css/style.css">
-    <style>
-        .key-bar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .key-bar input { flex: 1; min-width: 220px; padding: 12px 20px; border: none; border-radius: 8px; font-size: 1rem; }
-        .key-bar button { padding: 12px 24px; background: #fff; border: none; border-radius: 8px; font-weight: bold; color: #667eea; cursor: pointer; }
-        .key-hint { color: white; opacity: 0.9; font-size: 0.9rem; margin-bottom: 10px; }
-        .key-hint a { color: white; }
-        .link-btn { background: none; border: none; color: white; text-decoration: underline; cursor: pointer; font-size: 0.9rem; }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/pages.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Catálogo de Filmes</h1>
-            <p>Descubra filmes, adicione aos favoritos e avalie</p>
-        </header>
+    <header class="topo">
+        <span class="marca">Catálogo</span>
 
-        <div id="keySection" class="hidden">
-            <p class="key-hint">Informe sua chave da API TMDB (v3). Ela fica salva só neste navegador. <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Obter chave</a></p>
-            <div class="key-bar">
-                <input type="password" id="keyInput" placeholder="Chave da API TMDB" autocomplete="off">
-                <button id="keySave" type="button">Salvar chave</button>
-            </div>
+        <nav class="abas" aria-label="Seções">
+            <button type="button" class="aba" id="tabPopulares" aria-current="true">Populares</button>
+            <button type="button" class="aba" id="tabMeus">Minha lista <span class="contagem" id="contagem">0</span></button>
+        </nav>
+
+        <form class="busca" id="searchForm" role="search">
+            <label class="sr-only" for="searchInput">Buscar filmes</label>
+            <input id="searchInput" type="search" placeholder="Buscar por título" autocomplete="off">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </form>
+    </header>
+
+    <main class="conteudo" id="conteudo">
+        <div id="alerta" class="alerta" role="alert" hidden></div>
+        <div id="hero"></div>
+
+        <div class="secao-topo">
+            <h1 id="tituloSecao">Populares agora</h1>
+            <p id="subSecao"></p>
         </div>
 
-        <div class="search-section">
-            <input type="text" id="searchInput" placeholder="Buscar filmes...">
-            <button id="searchBtn" type="button">Buscar</button>
-        </div>
+        <div id="filmesGrid" class="grade" aria-live="polite"></div>
+    </main>
 
-        <div class="tabs">
-            <button class="tab active" id="tabPopulares" type="button">Populares</button>
-            <button class="tab" id="tabMeus" type="button">Meus Filmes</button>
-        </div>
+    <footer class="rodape">
+        <p>Este produto usa a API do TMDB, mas não é endossado nem certificado pelo TMDB.</p>
+        <button type="button" class="link" id="keyOpen">Chave da API</button>
+    </footer>
 
-        <div id="loading" class="hidden">Carregando...</div>
-        <div id="errorMessage" class="error hidden"></div>
-
-        <div id="filmesGrid" class="filmes-grid"></div>
-
-        <p style="text-align:center; margin-top:30px;">
-            <button class="link-btn" id="keyReset" type="button">Trocar chave da API</button>
-        </p>
+    <div id="toast" class="toast" role="status" hidden>
+        <span id="toastMsg"></span>
+        <button type="button" class="toast-acao" id="toastAcao" hidden></button>
     </div>
+
+    <dialog id="ratingDialog" aria-labelledby="ratingTitulo">
+        <form id="ratingForm" method="dialog">
+            <h2 id="ratingTitulo">Sua nota</h2>
+            <p class="dialog-sub" id="ratingFilme"></p>
+            <label for="ratingInput">Nota de 0 a 10</label>
+            <input id="ratingInput" type="number" min="0" max="10" step="0.1" inputmode="decimal" required>
+            <input id="ratingRange" type="range" min="0" max="10" step="0.5" aria-label="Ajustar nota">
+            <p class="dialog-erro" id="ratingErro" hidden></p>
+            <div class="dialog-acoes">
+                <button type="button" class="btn btn-quiet" id="ratingCancelar">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Salvar nota</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="keyDialog" aria-labelledby="keyTitulo">
+        <form id="keyForm" method="dialog">
+            <h2 id="keyTitulo">Chave da API</h2>
+            <p class="dialog-sub">Use sua própria chave TMDB v3. Ela fica salva só neste navegador.</p>
+            <label for="keyInput">Chave</label>
+            <input id="keyInput" type="text" autocomplete="off" spellcheck="false">
+            <div class="dialog-acoes">
+                <button type="button" class="btn btn-quiet" id="keyPadrao">Usar chave padrão</button>
+                <button type="submit" class="btn btn-primary">Salvar chave</button>
+            </div>
+        </form>
+    </dialog>
 
     <script src="static/js/pages.js"></script>
 </body>
